@@ -1,10 +1,15 @@
 name: Push NuGet to JFrog
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
 
+defaults:
+  run:
+    working-directory: ./CustomLibrary
+    
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -25,11 +30,14 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: Pack NuGet package
-        run: dotnet pack --configuration Release --output ./nupkg
+        run: dotnet pack --configuration Release
 
-      - name: Push NuGet package to JFrog
+      - name: Setup JFrog CLI
+        uses: jfrog/setup-jfrog-cli@v4
+        env:
+          JF_URL: ${{ secrets.JFROG_URL }}
+          JF_ACCESS_TOKEN: ${{ secrets.JFROG_TOKEN }}
+          
+      - name: Publish to Artifactory
         run: |
-          dotnet nuget push ./nupkg/*.nupkg \
-            --source "${{ secrets.JFROG_URL }}" \
-            --api-key "${{ secrets.JFROG_API_KEY }}" \
-            --skip-duplicate
+          jf rt u "**/*.nupkg" custompackages2/ --flat=true
