@@ -45,7 +45,7 @@ jobs:
         run: dotnet build --configuration Release /p:Version=${{ steps.version.outputs.version }}
 
       - name: Pack NuGet package
-        run: dotnet pack --configuration Release
+        run: dotnet pack --configuration Release /p:Version=${{ steps.version.outputs.version }}
 
       - name: Setup JFrog CLI
         uses: jfrog/setup-jfrog-cli@v4
