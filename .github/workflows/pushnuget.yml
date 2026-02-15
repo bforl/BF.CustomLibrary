@@ -42,7 +42,7 @@ jobs:
         run: dotnet restore
 
       - name: Build project
-        run: dotnet build --configuration Release
+        run: dotnet build --configuration Release /p:Version=${{ steps.version.outputs.version }}
 
       - name: Pack NuGet package
         run: dotnet pack --configuration Release
