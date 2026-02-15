@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - 'v*'      
 
 defaults:
   run:
@@ -23,6 +25,19 @@ jobs:
         with:
           dotnet-version: 10.0 # adjust as needed
 
+      - name: Get version
+        id: version
+        run: |
+          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            # If it's a tag push, strip 'refs/tags/' to get tag
+            VERSION="${GITHUB_REF#refs/tags/}"
+          else
+            # If not a tag, use branch name + short SHA as version
+            VERSION="0.0.${GITHUB_RUN_NUMBER}"
+          fi
+          echo "Version: $VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+        
       - name: Restore dependencies
         run: dotnet restore
 
