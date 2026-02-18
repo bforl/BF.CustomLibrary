@@ -25,12 +25,17 @@ jobs:
       - name: print working dir
         run: pwd
 
+      - name: print working dir
+        run: ls
         
       - name: set working dir
         run: cd ./CustomLibrary
 
       - name: print working dir
         run: pwd
+
+      - name: print working dir
+        run: ls
         
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v3
