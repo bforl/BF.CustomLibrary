@@ -22,8 +22,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: print working dir
+        run: pwd
+
+        
       - name: set working dir
         run: cd ./CustomLibrary
+
+      - name: print working dir
+        run: pwd
         
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v3
