@@ -22,7 +22,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Step 1
+      - name: set working dir
         run: cd ./CustomLibrary
         
       - name: Setup .NET SDK
@@ -42,7 +42,10 @@ jobs:
           fi
           echo "Version: $VERSION"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-        
+
+      - name: print working dir
+        run: pwd
+  
       - name: Restore dependencies
         run: dotnet restore
 
