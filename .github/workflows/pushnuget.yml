@@ -6,20 +6,18 @@ on:
     branches:
       - main
     tags:
-      - '*'      
-
-defaults:
-  run:
-    working-directory: ./CustomLibrary
-    
+      - '*'         
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
     steps:
 
-      - name: Print Repository Name
-        run: echo "sdssd"
+      - name: Print Repository Name from Event
+        run: |
+          echo "Repository full name: ${{ github.event.repository.full_name }}"
+          echo "Repository name only: ${{ github.event.repository.name }}"
+          echo "Repository owner: ${{ github.event.repository.owner.login }}"
         
       - name: Checkout code
         uses: actions/checkout@v3
