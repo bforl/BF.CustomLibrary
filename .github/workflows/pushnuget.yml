@@ -6,12 +6,19 @@ on:
     branches:
       - main
     tags:
-      - '*'         
+      - '*'      
+
+defaults:
+  run:
+    working-directory: ./CustomLibrary
+    
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Print Repository Name from Event
         run: |
@@ -19,24 +26,7 @@ jobs:
           echo "Repository name only: ${{ github.event.repository.name }}"
           echo "Repository owner: ${{ github.event.repository.owner.login }}"
 
-      - name: Checkout code
-        uses: actions/checkout@v3
 
-      - name: print working dir
-        run: pwd
-
-      - name: print working dir
-        run: ls
-        
-      - name: set working dir
-        run: cd ./CustomLibrary
-
-      - name: print working dir
-        run: pwd
-
-      - name: print working dir
-        run: ls
-        
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v3
         with:
@@ -54,10 +44,7 @@ jobs:
           fi
           echo "Version: $VERSION"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-
-      - name: print working dir
-        run: pwd
-  
+        
       - name: Restore dependencies
         run: dotnet restore
 
