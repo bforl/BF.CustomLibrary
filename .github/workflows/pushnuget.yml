@@ -19,12 +19,12 @@ jobs:
           echo "Repository name only: ${{ github.event.repository.name }}"
           echo "Repository owner: ${{ github.event.repository.owner.login }}"
 
-      - name: Step 1
-        run: cd ./CustomLibrary
-        
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Step 1
+        run: cd ./CustomLibrary
+        
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v3
         with:
