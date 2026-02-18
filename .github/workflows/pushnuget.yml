@@ -19,9 +19,8 @@ jobs:
     steps:
 
       - name: Print Repository Name
-        run: echo "Repository name is ${{ github.repository }}"
-
-
+        run: echo "sdssd"
+        
       - name: Checkout code
         uses: actions/checkout@v3
 
