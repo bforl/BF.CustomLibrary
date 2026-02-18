@@ -18,6 +18,9 @@ jobs:
           echo "Repository full name: ${{ github.event.repository.full_name }}"
           echo "Repository name only: ${{ github.event.repository.name }}"
           echo "Repository owner: ${{ github.event.repository.owner.login }}"
+
+      - name: Step 1
+        run: cd ./CustomLibrary
         
       - name: Checkout code
         uses: actions/checkout@v3
