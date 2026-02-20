@@ -29,7 +29,7 @@ jobs:
         id: getnuspecVersion
         shell: pwsh
         run: |
-            cd "${{ env.packageDir }}"
+            cd ./Package
             [xml]$xml = Get-Content My.Spec.nuspec
             $version = $xml.package.metadata.version
             "nuspecVersion=$version" >> $env:GITHUB_OUTPUT
