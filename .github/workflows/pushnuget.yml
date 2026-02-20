@@ -20,17 +20,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Print Repository Name from Event
-        run: |
-          echo "Repository full name: ${{ github.event.repository.full_name }}"
-          echo "Repository name only: ${{ github.event.repository.name }}"
-          echo "Repository owner: ${{ github.event.repository.owner.login }}"
-
-
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 10.0 # adjust as needed
+      
+      - name: Get nuspec version
+        id: getnuspecVersion
+        shell: pwsh
+        run: |
+            cd "${{ env.packageDir }}"
+            [xml]$xml = Get-Content My.Spec.nuspec
+            $version = $xml.package.metadata.version
+            "nuspecVersion=$version" >> $env:GITHUB_OUTPUT
 
       - name: Get version
         id: version
