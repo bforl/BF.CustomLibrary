@@ -35,7 +35,7 @@ jobs:
             "nuspecVersion=$version" >> $env:GITHUB_OUTPUT
             
       - name: Debug output
-        run: echo "Result ${{ steps.getnuspecVersion.outputs.nuspecVersion || Signing }}"
+        run: echo "Result ${{ steps.getnuspecVersion.outputs.nuspecVersion || 'Signing' }}"
   
       - name: Get version
         id: version
